@@ -1,9 +1,11 @@
 using HashFlow.Application.Common.Interfaces;
 using HashFlow.Application.RabbitMQ.Services;
 using HashFlow.Common.Utils;
+using HashFlow.Domain.DTOs;
 using HashFlow.Infrastructure;
 using HashFlow.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,10 @@ builder.Services.AddDbContext<HashesDbContext>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.Configure<MessageBrokerSettingsDto>(
+    builder.Configuration.GetSection("MessageBroker"));
+builder.Services.AddSingleton(sp
+    => sp.GetRequiredService<IOptions<MessageBrokerSettingsDto>>().Value);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
