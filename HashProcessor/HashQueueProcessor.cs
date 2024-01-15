@@ -73,9 +73,7 @@ public class HashQueueProcessor : BackgroundService
                 .Select(hashString => new Hash
                 {
                     Id = Guid.NewGuid(),
-                    Date = DateTime.UtcNow.AddDays(
-                        Random.Shared.Next(30)
-                    ),
+                    Date = DateTime.UtcNow,
                     Sha1 = hashString
                 })
                 .ToList();
