@@ -1,3 +1,10 @@
+using HashFlow.Application.Common.Interfaces;
+using HashFlow.Application.RabbitMQ.Services;
+using HashFlow.Common.Utils;
+using HashFlow.Infrastructure;
+using HashFlow.Infrastructure.Persistance.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,19 +14,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IMessageProducer, MessageProducer>();
+builder.Services.AddScoped<IHashesRepository, HashesRepository>();
+
+builder.Services.AddDbContext<HashesDbContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+await MigrateDbContext.MigrateAsync(app);
 
 app.Run();
