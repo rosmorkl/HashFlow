@@ -7,6 +7,7 @@
       - "8080:80"
     depends_on:
       - db
+      - rabbitMQ
   
   db:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
@@ -14,14 +15,17 @@
       - "1433:1433"
     
     environment:
-      ACCEPT_EULA : "Y"
+      ACCEPT_EULA: "Y"
       SA_PASSWORD: "Pa55wordHello"
   
   hashProcessor:
     build:
       context: .
       dockerfile: HashProcessor/Dockerfile
-    
+    depends_on:
+      - db
+      - rabbitMQ
+  
   rabbitMQ:
     image: "rabbitmq:3.10.7-management"
     hostname: "rabbitmq"
