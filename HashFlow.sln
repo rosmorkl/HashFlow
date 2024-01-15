@@ -2,6 +2,19 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashFlow", "HashFlow\HashFlow.csproj", "{C86C2B64-A82A-4C7B-915E-EAB8CCA6698C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashFlow.Infrastructure", "HashFlow.Infrastructure\HashFlow.Infrastructure.csproj", "{777387C4-2A84-49EE-8D85-A85D72DC7D6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9894C847-7B4A-4C71-8A8A-790F72A2D05B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashFlow.Application", "HashFlow.Application\HashFlow.Application.csproj", "{08D70F5F-AED9-419A-831D-BE01E0837C59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashFlow.Domain", "HashFlow.Domain\HashFlow.Domain.csproj", "{7CC8F515-2760-4940-9BA4-3D7D32FA19A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashProcessor", "HashProcessor\HashProcessor.csproj", "{F4EFD091-7D40-4BD7-AAE5-261613D796CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +25,21 @@ Global
 		{C86C2B64-A82A-4C7B-915E-EAB8CCA6698C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C86C2B64-A82A-4C7B-915E-EAB8CCA6698C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C86C2B64-A82A-4C7B-915E-EAB8CCA6698C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{777387C4-2A84-49EE-8D85-A85D72DC7D6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{777387C4-2A84-49EE-8D85-A85D72DC7D6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{777387C4-2A84-49EE-8D85-A85D72DC7D6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{777387C4-2A84-49EE-8D85-A85D72DC7D6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D70F5F-AED9-419A-831D-BE01E0837C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D70F5F-AED9-419A-831D-BE01E0837C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D70F5F-AED9-419A-831D-BE01E0837C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D70F5F-AED9-419A-831D-BE01E0837C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CC8F515-2760-4940-9BA4-3D7D32FA19A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC8F515-2760-4940-9BA4-3D7D32FA19A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC8F515-2760-4940-9BA4-3D7D32FA19A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC8F515-2760-4940-9BA4-3D7D32FA19A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4EFD091-7D40-4BD7-AAE5-261613D796CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4EFD091-7D40-4BD7-AAE5-261613D796CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4EFD091-7D40-4BD7-AAE5-261613D796CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4EFD091-7D40-4BD7-AAE5-261613D796CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
