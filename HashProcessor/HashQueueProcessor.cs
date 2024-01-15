@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using System.Text.Json;
 using HashFlow.Application.Common.Interfaces;
+using HashFlow.Domain.DTOs;
 using HashFlow.Domain.Models;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -15,17 +15,19 @@ public class HashQueueProcessor : BackgroundService
     private readonly IModel _channel;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly SemaphoreSlim _processingSemaphore;
-
-    public HashQueueProcessor(ILogger<HashQueueProcessor> logger, IServiceScopeFactory serviceScopeFactory)
+    public HashQueueProcessor(ILogger<HashQueueProcessor> logger, IServiceScopeFactory serviceScopeFactory, MessageBrokerSettingsDto messageBrokerSettings)
     {
         _logger = logger;
         _serviceScopeFactory = serviceScopeFactory;
         _processingSemaphore = new SemaphoreSlim(4);
 
         var factory = new ConnectionFactory()
-        {
-            Uri = new Uri("amqp://hashesAdmin:hashesPassword@rabbitmq:5672/"),
-            ClientProvidedName = "Rabbit Sender App"
+        { 
+            HostName = messageBrokerSettings.Host,
+            Port = messageBrokerSettings.Port,
+            Password = messageBrokerSettings.Password,
+            UserName = messageBrokerSettings.Username,
+            ClientProvidedName = "Rabbit Processor App"
         };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();

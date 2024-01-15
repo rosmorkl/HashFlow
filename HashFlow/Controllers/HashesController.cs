@@ -1,10 +1,8 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using HashFlow.Application.Common.Interfaces;
-using HashFlow.Domain.Models;
-using HashFlow.Infrastructure;
+using HashFlow.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HashFlow.Controllers;
 
@@ -42,29 +40,29 @@ public class HashesController : ControllerBase
 
     private async Task ProcessBatchAsync(int batchSize)
     {
-        var batch = await GenerateHashBatch(batchSize);
-        _messageProducer.SendBatchToQueueAsync(batch);
+        string[] batch = await GenerateHashBatch(batchSize);
+        _messageProducer.SendBatchToQueue(batch);
     }
 
     private Task<string[]> GenerateHashBatch(int batchSize)
     {
-        var tasks = Enumerable
+        IEnumerable<Task<string>> tasks = Enumerable
             .Range(0, batchSize).Select(_ => Task.Run(GenerateRandomSHA1Hash));
         return Task.WhenAll(tasks);
     }
 
     private string GenerateRandomSHA1Hash()
     {
-        using var sha1 = SHA1.Create();
-        var randomData = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
-        var hash = sha1.ComputeHash(randomData);
+        using SHA1 sha1 = SHA1.Create();
+        byte[] randomData = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
+        byte[] hash = sha1.ComputeHash(randomData);
         return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
     }
 
     [HttpGet]
     public async Task<IActionResult> GetHashes()
     {
-        var a = await _hashesRepository.GetHashCountGroupedByDateAsync();
-        return Ok(a);
+        List<HashCountDto> hashGroups = await _hashesRepository.GetHashCountGroupedByDateAsync();
+        return Ok(hashGroups);
     }
 }

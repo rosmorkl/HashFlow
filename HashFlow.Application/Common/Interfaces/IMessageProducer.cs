@@ -2,5 +2,5 @@
 
 public interface IMessageProducer
 {
-    void SendBatchToQueueAsync(IEnumerable<string> batch);
+    void SendBatchToQueue(IEnumerable<string> batch);
 }

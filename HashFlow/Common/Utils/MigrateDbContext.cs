@@ -1,5 +1,4 @@
-﻿using HashFlow.Domain.Models;
-using HashFlow.Infrastructure;
+﻿using HashFlow.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace HashFlow.Common.Utils;
